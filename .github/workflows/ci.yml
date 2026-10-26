@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.10", "3.13"]
+        exclude:
+          - os: macos-latest
+            python: "3.10"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Unit tests (stdlib unittest)
+        run: python -m unittest discover -s tests -v
+      - name: Demo agent end-to-end (record / replay / diff)
+        shell: bash
+        run: |
+          python examples/demo_agent.py --mode record --scenario stable
+          python examples/demo_agent.py --mode record --scenario drift
+          python examples/demo_agent.py --mode replay
+          python -m tapedeck diff demo-stable demo-drift
+          python -m tapedeck ls
+          python -m tapedeck report demo-stable
+      - name: CLI installs and runs (pip install -e .)
+        shell: bash
+        run: |
+          pip install -e .
+          tapedeck --version
+          tapedeck ls
