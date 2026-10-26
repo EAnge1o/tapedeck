@@ -30,8 +30,11 @@ jobs:
           python examples/demo_agent.py --mode record --scenario drift
           python examples/demo_agent.py --mode replay
           # drift detected -> diff exits 1; assert exactly that:
+          set +e
           python -m tapedeck diff demo-stable demo-drift
-          test $? -eq 1
+          rc=$?
+          set -e
+          test $rc -eq 1
           python -m tapedeck ls
           python -m tapedeck report demo-stable
       - name: CLI installs and runs (pip install -e .)
