@@ -29,7 +29,9 @@ jobs:
           python examples/demo_agent.py --mode record --scenario stable
           python examples/demo_agent.py --mode record --scenario drift
           python examples/demo_agent.py --mode replay
+          # drift detected -> diff exits 1; assert exactly that:
           python -m tapedeck diff demo-stable demo-drift
+          test $? -eq 1
           python -m tapedeck ls
           python -m tapedeck report demo-stable
       - name: CLI installs and runs (pip install -e .)
