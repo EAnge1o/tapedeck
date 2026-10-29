@@ -20,7 +20,7 @@ from .redact import Redactor
 from .session import Event, RecordingTape, ReplayDrift, ReplayingTape
 from .store import DEFAULT_ROOT, RunStore
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "record", "play", "load_run", "Redactor", "RecordingTape", "ReplayingTape",

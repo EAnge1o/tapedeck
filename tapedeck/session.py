@@ -97,8 +97,24 @@ class Event:
 class Tape:
     """The interface agents code against: ``result = tape.call(kind, name, fn, *args)``."""
 
-    def call(self, kind: str, name: str, fn: Callable[..., Any], *args, **kwargs) -> Any:
+    def call(self, kind: str, name: str, fn: Callable[..., Any], *args,
+             transform: Callable[[Any], tuple[Any, dict | None]] | None = None,
+             **kwargs) -> Any:
         raise NotImplementedError
+
+    def watch(self, client: Any) -> Any:
+        """Wire a provider SDK client to this tape (OpenAI/Anthropic/compatible).
+
+        Returns a transparent proxy: the code keeps reading like plain SDK
+        calls, while every intercepted completion is traced under kind
+        ``model``. On a recording tape calls run live; on a replaying tape
+        they are served from the trace without touching the network.
+        Requires the matching optional extra (``pip install
+        tapedeck-llm[openai]`` / ``[anthropic]``) -- the SDK itself is
+        imported only here, never by the core.
+        """
+        from .adapters import watch_client
+        return watch_client(self, client)
 
     def mark(self, name: str) -> None:
         """Record a zero-cost landmark (phase boundaries, retries, decisions)."""
@@ -113,7 +129,9 @@ class RecordingTape(Tape):
     _events: list = field(default_factory=list)
     _warnings: list = field(default_factory=list)
 
-    def call(self, kind: str, name: str, fn: Callable[..., Any], *args, **kwargs) -> Any:
+    def call(self, kind: str, name: str, fn: Callable[..., Any], *args,
+             transform: Callable[[Any], tuple[Any, dict | None]] | None = None,
+             **kwargs) -> Any:
         i = len(self._events)
         started = time.perf_counter()
         try:
@@ -134,6 +152,9 @@ class RecordingTape(Tape):
         # Providers return (payload, usage) pairs; accept both conventions.
         if isinstance(output, tuple) and len(output) == 2 and isinstance(output[1], dict):
             result, usage = output
+        if transform is not None:
+            # SDK adapters: raw response object -> (recordable dict, usage).
+            result, usage = transform(result)
         self._events.append(Event(
             i=i, kind=kind, name=name,
             input=self._redact_in(args, kwargs),
@@ -142,6 +163,23 @@ class RecordingTape(Tape):
             wall_ms=wall,
         ))
         return result
+
+    def record_raw(self, kind: str, name: str, input: Any, output: Any = None,
+                   error: str | None = None, usage: dict | None = None,
+                   wall_ms: float = 0.0) -> None:
+        """Append a pre-computed event.
+
+        The one escape hatch from ``call`` -- used by the SDK adapters for
+        streaming responses, where the trace event can only be written after
+        the stream has been consumed.
+        """
+        redact = self.redact.apply if self.redact else _jsonable
+        self._events.append(Event(
+            i=len(self._events), kind=kind, name=name,
+            input=redact(input),
+            output=redact(output) if output is not None else None,
+            error=error, usage=usage, wall_ms=wall_ms,
+        ))
 
     def _redact_in(self, args: tuple, kwargs: dict) -> Any:
         payload: Any = {"args": list(args), "kwargs": kwargs} if kwargs else list(args)
@@ -191,7 +229,9 @@ class ReplayingTape(Tape):
         if self.lenient:
             self.strict = False
 
-    def call(self, kind: str, name: str, fn: Callable[..., Any], *args, **kwargs) -> Any:
+    def call(self, kind: str, name: str, fn: Callable[..., Any], *args,
+             transform: Callable[[Any], tuple[Any, dict | None]] | None = None,
+             **kwargs) -> Any:
         if self.cursor >= len(self.events):
             return self._drift(len(self.events), kind, name, "missing",
                                "the recording ends before this call",

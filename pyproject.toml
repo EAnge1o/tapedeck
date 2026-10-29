@@ -3,8 +3,12 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "tapedeck"
-version = "0.1.0"
+# PyPI note: the name "tapedeck" has been taken on PyPI since 2015 by an
+# unrelated music player. The project is "tapedeck", the distribution is
+# "tapedeck-llm"; `pip install tapedeck-llm` still gives you the
+# `tapedeck` package and the `tapedeck` CLI.
+name = "tapedeck-llm"
+version = "0.2.0"
 description = "Flight recorder for LLM agents: record once, replay forever, diff what drifted. Zero dependencies."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -16,11 +20,24 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Framework :: Pytest",
     "Topic :: Software Development :: Testing",
 ]
 
+[project.urls]
+Repository = "https://github.com/EAnge1o/tapedeck"
+Issues = "https://github.com/EAnge1o/tapedeck/issues"
+
 [project.scripts]
 tapedeck = "tapedeck.cli:main"
+
+[project.optional-dependencies]
+openai = ["openai>=1.40"]
+anthropic = ["anthropic>=0.34"]
+pytest = ["pytest>=8"]
+
+[project.entry-points.pytest11]
+tapedeck = "tapedeck.pytest_plugin"
 
 [tool.setuptools.packages.find]
 include = ["tapedeck*"]
