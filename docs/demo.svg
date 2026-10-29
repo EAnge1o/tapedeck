@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="656.0" height="513" viewBox="0 0 656.0 513" role="img" aria-label="tapedeck — record · replay · diff (real output)">
+<!-- rendered from real command output by docs/make_demo_svg.py -->
+<rect x="0.5" y="0.5" width="655.0" height="512.0" rx="10" fill="#0d1117" stroke="#30363d"/>
+<path d="M0.5 10.5 a10 10 0 0 1 10 -10 h635.0 a10 10 0 0 1 10 10 v28 h-655.0 z" fill="#161b22" stroke="none"/>
+<line x1="0.5" y1="38.0" x2="655.5" y2="38.0" stroke="#30363d"/>
+<circle cx="24" cy="19" r="6" fill="#ff5f56"/>
+<circle cx="44" cy="19" r="6" fill="#ffbd2e"/>
+<circle cx="64" cy="19" r="6" fill="#27c93f"/>
+<text x="328.0" y="23.5" text-anchor="middle" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="12" fill="#8b949e">tapedeck — record · replay · diff (real output)</text>
+<text x="20.0" y="60.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0"><tspan fill="#3fb950" font-weight="bold">$</tspan><tspan fill="#79c0ff" dx="8">python examples/demo_agent.py --mode record --scenario stable</tspan></text>
+<text x="20.0" y="81.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#c9d1d9">Your coffee is $3.50; with the 10% member discount you pay $6.30.</text>
+<text x="20.0" y="102.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#8b949e">[recorded 4 steps -&gt; .tapedeck/runs/20261026-151919-demo-stable | 284 tokens]</text>
+<text x="20.0" y="123.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0"><tspan fill="#3fb950" font-weight="bold">$</tspan><tspan fill="#79c0ff" dx="8">python examples/demo_agent.py --mode record --scenario drift</tspan></text>
+<text x="20.0" y="144.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#c9d1d9">Your coffee is $3.50; with the 20% member discount you pay $5.60.</text>
+<text x="20.0" y="165.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#8b949e">[recorded 4 steps -&gt; .tapedeck/runs/20261026-151920-demo-drift | 284 tokens]</text>
+<text x="20.0" y="186.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0"><tspan fill="#3fb950" font-weight="bold">$</tspan><tspan fill="#79c0ff" dx="8">python examples/demo_agent.py --mode replay</tspan></text>
+<text x="20.0" y="207.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#c9d1d9">Your coffee is $3.50; with the 10% member discount you pay $6.30.</text>
+<text x="20.0" y="228.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#7ee787">[replayed '...demo-stable': served 4 steps, 0 live calls, $0.00 spent]</text>
+<text x="20.0" y="249.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0"><tspan fill="#3fb950" font-weight="bold">$</tspan><tspan fill="#79c0ff" dx="8">python -m tapedeck diff demo-stable demo-drift; echo $?</tspan></text>
+<text x="20.0" y="270.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#c9d1d9">run A: demo-stable (4 steps)</text>
+<text x="20.0" y="291.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#c9d1d9">run B: demo-drift (4 steps)</text>
+<text x="20.0" y="312.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#c9d1d9">step 2 (tool:compute_total) output:</text>
+<text x="20.0" y="333.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#ff7b72">  A: 6.3</text>
+<text x="20.0" y="354.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#7ee787">  B: 5.6</text>
+<text x="20.0" y="375.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#8b949e">  context (steps 0..1):</text>
+<text x="20.0" y="396.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#8b949e">    step 0 (model:model.plan) input: []</text>
+<text x="20.0" y="417.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#8b949e">    step 1 (tool:get_price) input: []</text>
+<text x="20.0" y="438.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#c9d1d9">run A: $0.0001</text>
+<text x="20.0" y="459.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#c9d1d9">run B: $0.0001</text>
+<text x="20.0" y="480.0" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="13.0" fill="#ff7b72">1                          &lt;- exit 1: output drift, CI red</text>
+</svg>

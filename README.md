@@ -11,6 +11,23 @@
 
 零依赖：纯 Python 标准库（连测试都是 `unittest`）。不上传任何数据——trace 就是本地文件，可以进 git、可以 cat、可以 rsync。
 
+![tapedeck demo: record / replay / diff, rendered from real command output](docs/demo.svg)
+
+*（截图由 `docs/make_demo_svg.py` 用真实命令输出渲染而成，不是摆拍。）*
+
+## 它如何工作
+
+```mermaid
+flowchart LR
+    A["你的 Agent<br/>tape.call(...)"] -->|"live 运行"| B["RecordingTape<br/>REC ⏺"]
+    A -->|"改变代码后"| C["ReplayingTape<br/>PLAY ▶<br/>0 次 API 调用"]
+    B --> D["trace.jsonl<br/>+ meta.json"]
+    C -.->|"逐字回放"| D
+    B --> E["tapedeck diff<br/>第一个漂移步骤"]
+    F["第二次录制"] --> E
+    E -->|"exit 0 / 1 / 2"| G["CI ✅ ❌"]
+```
+
 ## 30 秒上手
 
 ```bash
@@ -84,6 +101,8 @@ tapedeck report RUN          # 单个 run 的逐步明细表
 tapedeck diff A B            # 第一个漂移点 + 上下文 + usage/成本对照
 tapedeck prune --keep 20     # 只留最近 20 个 run
 ```
+
+![tapedeck ls and report, rendered from real command output](docs/report.svg)
 
 ## 录制格式
 
