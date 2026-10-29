@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="240" viewBox="0 0 840 240" role="img" aria-label="tapedeck — flight recorder for LLM agents">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c2431"/>
+      <stop offset="1" stop-color="#141a24"/>
+    </linearGradient>
+    <linearGradient id="label" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#242c3a"/>
+      <stop offset="1" stop-color="#1a212c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- cassette body -->
+  <rect x="30" y="28" width="420" height="184" rx="16" fill="url(#body)" stroke="#30363d" stroke-width="2"/>
+  <rect x="56" y="52" width="368" height="104" rx="8" fill="url(#label)" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- reels: left spinning (record), right idle -->
+  <g>
+    <circle cx="130" cy="104" r="30" fill="#0d1117" stroke="#58a6ff" stroke-width="2.5"/>
+    <circle cx="130" cy="104" r="12" fill="#0d1117" stroke="#58a6ff" stroke-width="2"/>
+    <g stroke="#58a6ff" stroke-width="3" stroke-linecap="round">
+      <line x1="130" y1="80" x2="130" y2="92"/>
+      <line x1="150" y1="116" x2="141" y2="110"/>
+      <line x1="110" y1="116" x2="119" y2="110"/>
+    </g>
+    <circle cx="130" cy="104" r="5" fill="#58a6ff"/>
+  </g>
+  <g>
+    <circle cx="350" cy="104" r="30" fill="#0d1117" stroke="#8b949e" stroke-width="2.5"/>
+    <circle cx="350" cy="104" r="12" fill="#0d1117" stroke="#8b949e" stroke-width="2"/>
+    <g stroke="#8b949e" stroke-width="3" stroke-linecap="round">
+      <line x1="350" y1="80" x2="350" y2="92"/>
+      <line x1="370" y1="116" x2="361" y2="110"/>
+      <line x1="330" y1="116" x2="339" y2="110"/>
+    </g>
+    <circle cx="350" cy="104" r="5" fill="#8b949e"/>
+  </g>
+
+  <!-- tape path between reels -->
+  <path d="M130 134 C 160 168, 320 168, 350 134" fill="none" stroke="#58a6ff" stroke-width="2" opacity="0.35" stroke-dasharray="6 5"/>
+
+  <!-- REC dot + PLAY triangle on the label -->
+  <circle cx="86" cy="132" r="7" fill="#ff5f56"/>
+  <path d="M96 138 l0 -12 11 6 z" fill="#7ee787"/>
+
+  <!-- bottom trapezoid screws -->
+  <path d="M96 212 l14 -18 h34 l14 18 z" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+  <path d="M322 212 l14 -18 h34 l14 18 z" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- wordmark -->
+  <text x="486" y="118" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="64" font-weight="bold" fill="#e6edf3">tapedeck</text>
+  <text x="490" y="162" font-family="ui-monospace,'Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace" font-size="21" fill="#8b949e">REC ⏺ once · PLAY ▶ forever · diff ⏩ drift</text>
+</svg>
