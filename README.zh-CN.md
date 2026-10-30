@@ -196,8 +196,12 @@ tapedeck prune --keep 20     # 只留最近 20 个 run
 
 见 [DESIGN.md](DESIGN.md)：为什么 trace 是 JSONL 而不是 SQLite、为什么按位置对齐而不是按内容对齐、为什么脱敏默认关闭而重放默认严格。
 
-## 同系列
+## 磁带三件套
 
-[nimbus-infer](https://github.com/EAnge1o/nimbus-infer) · [nimbus-infer-rs](https://github.com/EAnge1o/nimbus-infer-rs) · [nimbus-vm](https://github.com/EAnge1o/nimbus-vm) · [nimbus-kv](https://github.com/EAnge1o/nimbus-kv) —— tapedeck 是系列里第一个面向**产品与工作流**的工具：同样零依赖，但交付的不是引擎，是一条更顺的工作流。
+同一个"录制一次、永久重放"的思想，落在 agent 技术栈的三层：
 
-姊妹项目 [mocktape](https://github.com/EAnge1o/mocktape)：把同样的"录制一次、离线重放"思想用在 **HTTP 层**——把真实 API 录成可读的 YAML cassette，供前端/集成测试离线回放，404 时给出最近磁带匹配的诊断。mocktape 管 HTTP 流量，tapedeck 管 agent 决策，互相不知道对方存在，但常常一起出现在同一个测试套件里。
+- **[tapedeck](https://github.com/EAnge1o/tapedeck)**（本仓库）— agent 内部的模型与工具调用（Python，PyPI）
+- **[mcptape](https://github.com/EAnge1o/mcptape)** — MCP 工具协议边界：包住任意 MCP server，离线重放，diff 漂移（Python，PyPI）
+- **[mocktape](https://github.com/EAnge1o/mocktape)** — 前端身后的 HTTP 流量（TypeScript，npm）
+
+同系列从零实现引擎：[nimbus-infer](https://github.com/EAnge1o/nimbus-infer) · [nimbus-infer-rs](https://github.com/EAnge1o/nimbus-infer-rs) · [nimbus-vm](https://github.com/EAnge1o/nimbus-vm) · [nimbus-kv](https://github.com/EAnge1o/nimbus-kv)。

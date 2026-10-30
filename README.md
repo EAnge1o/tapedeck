@@ -194,8 +194,12 @@ One directory per run, two plain files (`DESIGN.md` has the full schema):
 
 See [DESIGN.md](DESIGN.md): why traces are JSONL instead of SQLite, why steps are aligned by position instead of content, why redaction defaults off while replay defaults strict.
 
-## Same series
+## The tape suite
 
-[nimbus-infer](https://github.com/EAnge1o/nimbus-infer) · [nimbus-infer-rs](https://github.com/EAnge1o/nimbus-infer-rs) · [nimbus-vm](https://github.com/EAnge1o/nimbus-vm) · [nimbus-kv](https://github.com/EAnge1o/nimbus-kv) — tapedeck is the first tool in the series aimed at **product and workflow** rather than an engine: the same zero-dependency stance, delivering a smoother workflow instead of a runtime.
+The same "record once, replay forever" idea, at three layers of an agent stack:
 
-Sister project [mocktape](https://github.com/EAnge1o/mocktape): the same "record once, replay offline" idea applied to the **HTTP layer** — real APIs recorded into readable YAML cassettes for frontend/integration testing, with closest-match diagnostics on 404. mocktape handles HTTP traffic, tapedeck handles agent decisions; neither knows the other exists, but they often show up in the same test suite.
+- **[tapedeck](https://github.com/EAnge1o/tapedeck)** (this repo) — model & tool calls *inside* your agent (Python, PyPI)
+- **[mcptape](https://github.com/EAnge1o/mcptape)** — the MCP tool-protocol boundary: wrap any MCP server, replay it offline, diff what drifted (Python, PyPI)
+- **[mocktape](https://github.com/EAnge1o/mocktape)** — HTTP traffic behind your frontend (TypeScript, npm)
+
+Same-series from-scratch engines: [nimbus-infer](https://github.com/EAnge1o/nimbus-infer) · [nimbus-infer-rs](https://github.com/EAnge1o/nimbus-infer-rs) · [nimbus-vm](https://github.com/EAnge1o/nimbus-vm) · [nimbus-kv](https://github.com/EAnge1o/nimbus-kv).
